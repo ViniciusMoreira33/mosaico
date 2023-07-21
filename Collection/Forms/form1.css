@@ -1,0 +1,21 @@
+:root {
+    --tag-bg-color: #007BFF;
+    --tag-text-color: #ffffff;
+    --tag-border-color: #007BFF;
+    --tag-icon-color: #ffffff;
+    --input-bg-color: #ffffff;
+}
+
+.tagsinput .tag {
+    background-color: var(--tag-bg-color) !important;
+    color: var(--tag-text-color) !important;
+    border-color: var(--tag-border-color) !important;
+}
+
+.tagsinput .tag a {
+    color: var(--tag-icon-color) !important;
+}
+
+.tagsinput {
+    background-color: var(--input-bg-color) !important;
+}git commit -am "Your commit message"
