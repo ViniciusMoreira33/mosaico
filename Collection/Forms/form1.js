@@ -1,6 +1,6 @@
 $(function() {
     var $form = $('#form1--component');
-    var $input = $('#form1--input'); // I'm assuming you can change the class selector to an id selector
+    var $input = $('#form1--input');
 
     var maxTags = parseInt($input.data('max-tags') || 10);
     var minChars = parseInt($input.data('min-chars') || 0);
@@ -17,26 +17,22 @@ $(function() {
     var iconColor = $input.data('icon-color') || '#ffffff';
     var inputBgColor = $input.data('input-bg-color') || '#ffffff';
 
-    var inputWidth = $input.data('input-width') || '100%'; //default to 100% if no data attribute is provided
-    var inputHeight = $input.data('input-height') || 'auto'; //default to auto if no data attribute is provided
+    var inputWidth = $input.data('input-width') || '100%'; 
+    var inputHeight = $input.data('input-height') || 'auto'; 
 
     var styleProperties = {
         '--tag-bg-color': tagColor,
         '--tag-text-color': tagTextColor,
         '--tag-border-color': borderColor,
         '--tag-icon-color': iconColor,
-        '--input-bg-color': inputBgColor
+        '--input-bg-color': inputBgColor,
+        '--input-width': inputWidth,
+        '--input-height': inputHeight
     };
 
     for (var property in styleProperties) {
         document.documentElement.style.setProperty(property, styleProperties[property]);
     }
-
-    // Apply width and height to the input element
-    $input.css({
-        'width': inputWidth,
-        'height': inputHeight
-    });
 
     $input.tagsInput({
         'interactive': interactive,
