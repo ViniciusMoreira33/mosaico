@@ -17,6 +17,9 @@ $(function() {
     var iconColor = $input.data('icon-color') || '#ffffff';
     var inputBgColor = $input.data('input-bg-color') || '#ffffff';
 
+    var inputWidth = $input.data('input-width') || '100%'; //default to 100% if no data attribute is provided
+    var inputHeight = $input.data('input-height') || 'auto'; //default to auto if no data attribute is provided
+
     var styleProperties = {
         '--tag-bg-color': tagColor,
         '--tag-text-color': tagTextColor,
@@ -28,6 +31,12 @@ $(function() {
     for (var property in styleProperties) {
         document.documentElement.style.setProperty(property, styleProperties[property]);
     }
+
+    // Apply width and height to the input element
+    $input.css({
+        'width': inputWidth,
+        'height': inputHeight
+    });
 
     $input.tagsInput({
         'interactive': interactive,
@@ -52,3 +61,4 @@ $(function() {
         }
     });
 });
+
