@@ -2,37 +2,26 @@ $(function() {
     var $form = $('#form1--component');
     var $input = $('#form1--input');
 
-    var maxTags = parseInt($input.data('max-tags') || 10);
-    var minChars = parseInt($input.data('min-chars') || 0);
-    var maxChars = parseInt($input.data('max-chars') || 0);
-    var defaultText = $input.data('default-text') || 'add a tag';
-    var interactive = $input.data('interactive') !== 'false';
-    var removeWithBackspace = $input.data('remove-with-backspace') !== 'false';
-    var placeholderColor = $input.data('placeholder-color') || '#666666';
-    var autocomplete = JSON.parse($input.data('autocomplete') || '[]');
+    var maxTags = parseInt($input.attr('data-max-tags') || 10);
+    var minChars = parseInt($input.attr('data-min-chars') || 0);
+    var maxChars = parseInt($input.attr('data-max-chars') || 0);
+    var defaultText = $input.attr('data-default-text') || 'add a tag';
+    var interactive = $input.attr('data-interactive') !== 'false';
+    var removeWithBackspace = $input.attr('data-remove-with-backspace') !== 'false';
+    var placeholderColor = $input.attr('data-placeholder-color') || '#666666';
+    var autocomplete = JSON.parse($input.attr('data-autocomplete') || '[]');
+    
+    var tagColor = $input.attr('data-tag-color') || '#007BFF';
+    var tagTextColor = $input.attr('data-tag-text-color') || '#ffffff';
+    var borderColor = $input.attr('data-tag-border-color') || '#007BFF';
+    var iconColor = $input.attr('data-icon-color') || '#ffffff';
+    var inputBgColor = $input.attr('data-input-bg-color') || '#ffffff';
 
-    var tagColor = $input.data('tag-color') || '#007BFF';
-    var tagTextColor = $input.data('tag-text-color') || '#ffffff';
-    var borderColor = $input.data('border-color') || '#007BFF';
-    var iconColor = $input.data('icon-color') || '#ffffff';
-    var inputBgColor = $input.data('input-bg-color') || '#ffffff';
-
-    var inputWidth = $input.data('input-width') || '100%'; 
-    var inputHeight = $input.data('input-height') || 'auto'; 
-
-    var styleProperties = {
-        '--tag-bg-color': tagColor,
-        '--tag-text-color': tagTextColor,
-        '--tag-border-color': borderColor,
-        '--tag-icon-color': iconColor,
-        '--input-bg-color': inputBgColor,
-        '--input-width': inputWidth,
-        '--input-height': inputHeight
-    };
-
-    for (var property in styleProperties) {
-        document.documentElement.style.setProperty(property, styleProperties[property]);
-    }
+    document.documentElement.style.setProperty('--tag-bg-color', tagColor);
+    document.documentElement.style.setProperty('--tag-text-color', tagTextColor);
+    document.documentElement.style.setProperty('--tag-border-color', borderColor);
+    document.documentElement.style.setProperty('--tag-icon-color', iconColor);
+    document.documentElement.style.setProperty('--input-bg-color', inputBgColor);
 
     $input.tagsInput({
         'interactive': interactive,
@@ -50,6 +39,45 @@ $(function() {
             }
         }
     });
+
+    var stylesToCopy = [
+        'height',
+        'width',
+        'paddingTop',
+        'paddingRight',
+        'paddingBottom',
+        'paddingLeft',
+        'borderTopWidth',
+        'borderRightWidth',
+        'borderBottomWidth',
+        'borderLeftWidth',
+        'borderTopColor',
+        'borderRightColor',
+        'borderBottomColor',
+        'borderLeftColor',
+        'borderTopStyle',
+        'borderRightStyle',
+        'borderBottomStyle',
+        'borderLeftStyle',
+        'borderTopLeftRadius',
+        'borderTopRightRadius',
+        'borderBottomRightRadius',
+        'borderBottomLeftRadius',
+        'fontSize',
+        'fontFamily',
+        'fontWeight',
+        'lineHeight',
+        'color'
+    ];
+
+    var originalStyles = window.getComputedStyle($input[0]);
+
+    var newStyles = stylesToCopy.reduce(function(result, styleName) {
+        result[styleName] = originalStyles[styleName];
+        return result;
+    }, {});
+
+    $('#form1--input_tagsinput').css(newStyles);
 
     $form.on('submit', function(event) {
         if ($input[0] === document.activeElement) {
