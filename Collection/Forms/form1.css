@@ -4,8 +4,6 @@
     --tag-border-color: #007BFF;
     --tag-icon-color: #ffffff;
     --input-bg-color: #ffffff;
-    --input-width: 100%;  /* Default value if not set */
-    --input-height: auto; /* Default value if not set */
 }
 
 .tagsinput .tag {
@@ -20,6 +18,4 @@
 
 .tagsinput {
     background-color: var(--input-bg-color) !important;
-    width: var(--input-width) !important;
-    height: var(--input-height) !important;
 }
