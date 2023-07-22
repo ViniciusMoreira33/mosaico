@@ -9,6 +9,9 @@
 .tagsinput .tag {
     background-color: var(--tag-bg-color) !important;
     color: var(--tag-text-color) !important;
+}
+
+.tagsinput span {
     border-color: var(--tag-border-color) !important;
 }
 
