@@ -1,5 +1,4 @@
-$(window).on('load', function() {
-    $(function() {
+ $(function() {
     var $form = $('#form1--component');
     var $input = $('#form1--input');
 
@@ -86,6 +85,6 @@ $(window).on('load', function() {
         }
     });
  });
-});
+
 
 
