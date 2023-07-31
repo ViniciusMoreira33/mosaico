@@ -1,7 +1,7 @@
     var qrcode;
 
     function createQR() {
-        var qrcodeDivs = document.querySelectorAll('[data-identifier="feature-qrcode"]');
+        var qrcodeDivs = document.querySelectorAll('[data-identifier="feature-qr-code"]');
         
         qrcodeDivs.forEach(function(qrcodeDiv) {
             var url = qrcodeDiv.getAttribute('data-qr-code');
