@@ -1,18 +1,18 @@
 const slider = document.querySelector('[data-identifier="comparison-handle"]');
-const beforeSide = document.querySelector('[data-identifier="before-side"]');
-const afterSide = document.querySelector('[data-identifier="after-side"]');
+const beforeImage = document.querySelector('[data-identifier="before-image"]');
+const afterImage = document.querySelector('[data-identifier="after-image"]');
 let isDragging = false;
 
 let orientation = slider.parentNode.getAttribute('data-comparison-orientation') || "horizontal";
 
 if (orientation === "horizontal") {
   slider.style.left = "50%";
-  beforeSide.style.clipPath = `inset(0 50% 0 0)`;
-  afterSide.style.clipPath = `inset(0 0 0 50%)`;
+  beforeImage.style.clipPath = `inset(0 50% 0 0)`;
+  afterImage.style.clipPath = `inset(0 0 0 50%)`;
 } else {
   slider.style.top = "50%";
-  beforeSide.style.clipPath = `inset(50% 0 0 0)`;
-  afterSide.style.clipPath = `inset(0 0 50% 0)`;
+  beforeImage.style.clipPath = `inset(50% 0 0 0)`;
+  afterImage.style.clipPath = `inset(0 0 50% 0)`;
 }
 
 slider.addEventListener('mousedown', (e) => {
@@ -42,13 +42,13 @@ function mousemove(e) {
     pos = e.clientX - rect.left;
     percentage = Math.min(Math.max((pos / rect.width) * 100, dimensionPercentage), 100 - dimensionPercentage);
     slider.style.left = `${percentage}%`;
-    beforeSide.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
-    afterSide.style.clipPath = `inset(0 0 0 ${percentage}%)`;
+    beforeImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+    afterImage.style.clipPath = `inset(0 0 0 ${percentage}%)`;
   } else {
     pos = e.clientY - rect.top;
     percentage = Math.min(Math.max((pos / rect.height) * 100 - dimensionPercentage, 0), 100 - dimensionPercentage);
     slider.style.top = `${percentage}%`;
-    beforeSide.style.clipPath = `inset(${percentage}% 0 0 0)`;
-    afterSide.style.clipPath = `inset(0 0 ${100 - percentage}% 0)`;
+    beforeImage.style.clipPath = `inset(${percentage}% 0 0 0)`;
+    afterImage.style.clipPath = `inset(0 0 ${100 - percentage}% 0)`;
   }
 }
