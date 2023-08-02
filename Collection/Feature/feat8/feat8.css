@@ -3,7 +3,7 @@
   overflow: hidden;
 }
 
-[data-identifier="before-image"], [data-identifier="after-image"] {
+[data-identifier="before-side"], [data-identifier="after-side"] {
   position: absolute;
   top: 0;
   left: 0;
