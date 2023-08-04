@@ -25,6 +25,7 @@
     const typedSpeedValue = parseFloat(typedText.getAttribute('data-typing-speed'));
     const typedCursorSize = typedText.getAttribute('data-type-cursor-size');
     const cursorClass = makeCursorStyle(typedText, typedCursorSize);
+    const loopValue = typedText.getAttribute('data-basic-typing-loop') === 'true' ? true : false; // Added line
 
     const sentences = getSentences(typedText);
 
@@ -32,9 +33,9 @@
       strings: sentences,
       typeSpeed: typedSpeedValue,
       cursorChar: `<span class="${cursorClass}">|</span>`,
+      loop: loopValue, // Used the value of the new attribute
     });
   });
-
 
 //this Mosaico element uses typed.js (License below)
 
