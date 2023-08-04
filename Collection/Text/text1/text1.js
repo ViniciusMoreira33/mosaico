@@ -1,29 +1,35 @@
- // function to create a unique cursor style and append to document head
+  // function to create a unique cursor style and append to document head
   function makeCursorStyle(typedElement, cursorSize) {
-    // Generate a unique class name based on the element's position in the document
     const uniqueClassName = 'typed-cursor-' + typedElement.dataset.identifier.replace(/\s+/g, '-').toLowerCase();
-
-    // Create a style element
     const style = document.createElement('style');
     style.innerHTML = `.${uniqueClassName} { 
         font-size: ${cursorSize}; 
-        vertical-align: middle;  // Adjust as needed
+        vertical-align: middle;
     }`;
-    
-    // Append the style element to the document head
     document.head.appendChild(style);
-
     return uniqueClassName;
+  }
+
+  function getSentences(typedElement) {
+    let sentences = [];
+    let i = 1;
+    while(typedElement.hasAttribute(`data-basic-typing-sentence${i}`)) {
+      sentences.push(typedElement.getAttribute(`data-basic-typing-sentence${i}`));
+      i++;
+    }
+    return sentences;
   }
 
   const typedTexts1 = document.querySelectorAll('[data-identifier="basic-typing"]');
   typedTexts1.forEach(typedText => {
-    const typedSpeedValue = parseFloat(typedText.getAttribute('data-typing-speed')); // Changed here
+    const typedSpeedValue = parseFloat(typedText.getAttribute('data-typing-speed'));
     const typedCursorSize = typedText.getAttribute('data-type-cursor-size');
     const cursorClass = makeCursorStyle(typedText, typedCursorSize);
 
+    const sentences = getSentences(typedText);
+
     const typed1 = new Typed(typedText, {
-      strings: ['Writing the first sentence,', 'now a second one,', 'and done.'],
+      strings: sentences,
       typeSpeed: typedSpeedValue,
       cursorChar: `<span class="${cursorClass}">|</span>`,
     });
