@@ -25,6 +25,7 @@
     const typedSpeedValue = parseFloat(typedText.getAttribute('data-typing-speed'));
     const typedCursorSize = typedText.getAttribute('data-type-cursor-size');
     const cursorClass = makeCursorStyle(typedText, typedCursorSize);
+    const loopValue = typedText.getAttribute('data-smart-typing-loop') === 'true' ? true : false; // Default value is false
 
     const sentences = getSentences(typedText);
 
@@ -33,7 +34,7 @@
       typeSpeed: typedSpeedValue,
       cursorChar: `<span class="${cursorClass}">|</span>`,
       smartBackspace: true,
-      loop: true,
+      loop: loopValue,
     });
   });
 
