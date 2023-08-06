@@ -1,4 +1,3 @@
-<script>
 document.addEventListener('DOMContentLoaded', (event) => {
     document.querySelector('[data-identifier="twitter-share"]').addEventListener("click", function(event) {
         event.preventDefault();
@@ -14,4 +13,4 @@ document.addEventListener('DOMContentLoaded', (event) => {
         window.open(url, '_blank');
     });
 });
-</script>
+
