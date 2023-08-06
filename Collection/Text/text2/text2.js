@@ -1,42 +1,43 @@
-  // function to create a unique cursor style and append to document head
-  function makeCursorStyle(typedElement, cursorSize) {
-    const uniqueClassName = 'typed-cursor-' + typedElement.dataset.identifier.replace(/\s+/g, '-').toLowerCase();
-    const style = document.createElement('style');
-    style.innerHTML = `.${uniqueClassName} { 
-        font-size: ${cursorSize}; 
-        vertical-align: middle;
-    }`;
-    document.head.appendChild(style);
-    return uniqueClassName;
+ // function to create a unique cursor style and append to document head
+function makeText2CursorStyle(typedElement, cursorSize) {
+  const uniqueText2ClassName = 'typedCursor-' + typedElement.dataset.identifier.replace(/\s+/g, '-').toLowerCase();
+  const text2Style = document.createElement('style');
+  text2Style.innerHTML = `.${uniqueText2ClassName} { 
+      font-size: ${cursorSize}; 
+      vertical-align: middle;
+  }`;
+  document.head.appendChild(text2Style);
+  return uniqueText2ClassName;
+}
+
+function getText2Sentences(typedElement) {
+  let text2Sentences = [];
+  let i = 1;
+  while(typedElement.hasAttribute(`data-smart-typing-sentence${i}`)) {
+    text2Sentences.push(typedElement.getAttribute(`data-smart-typing-sentence${i}`));
+    i++;
   }
+  return text2Sentences;
+}
 
-  function getSentences(typedElement) {
-    let sentences = [];
-    let i = 1;
-    while(typedElement.hasAttribute(`data-smart-typing-sentence${i}`)) {
-      sentences.push(typedElement.getAttribute(`data-smart-typing-sentence${i}`));
-      i++;
-    }
-    return sentences;
-  }
+const typedText2Elements = document.querySelectorAll('[data-identifier="smart-typing"]');
+typedText2Elements.forEach(typedText2 => {
+  const typedText2SpeedValue = parseFloat(typedText2.getAttribute('data-typing-speed'));
+  const typedText2CursorSize = typedText2.getAttribute('data-type-cursor-size');
+  const text2CursorClass = makeText2CursorStyle(typedText2, typedText2CursorSize);
+  const text2LoopValue = typedText2.getAttribute('data-smart-typing-loop') === 'true' ? true : false; // Default value is false
 
-  const typedTexts2 = document.querySelectorAll('[data-identifier="smart-typing"]');
-  typedTexts2.forEach(typedText => {
-    const typedSpeedValue = parseFloat(typedText.getAttribute('data-typing-speed'));
-    const typedCursorSize = typedText.getAttribute('data-type-cursor-size');
-    const cursorClass = makeCursorStyle(typedText, typedCursorSize);
-    const loopValue = typedText.getAttribute('data-smart-typing-loop') === 'true' ? true : false; // Default value is false
+  const text2Sentences = getText2Sentences(typedText2);
 
-    const sentences = getSentences(typedText);
-
-    const typed2 = new Typed(typedText, {
-      strings: sentences,
-      typeSpeed: typedSpeedValue,
-      cursorChar: `<span class="${cursorClass}">|</span>`,
-      smartBackspace: true,
-      loop: loopValue,
-    });
+  const text2Typed = new Typed(typedText2, {
+    strings: text2Sentences,
+    typeSpeed: typedText2SpeedValue,
+    cursorChar: `<span class="${text2CursorClass}">|</span>`,
+    smartBackspace: true,
+    loop: text2LoopValue,
   });
+});
+
 
 
 
