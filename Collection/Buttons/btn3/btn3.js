@@ -1,17 +1,17 @@
 (function() {
-  const buttons = document.querySelectorAll("[data-identifier='button-position-aware']");
+  const btn3Buttons = document.querySelectorAll("[data-identifier='button-position-aware']");
 
-  buttons.forEach(button => {
-    ["mouseenter", "mouseout"].forEach(evt => {
-      button.addEventListener(evt, e => {
-        let parentOffset = button.getBoundingClientRect(),
-            relX = e.pageX - parentOffset.left,
-            relY = e.pageY - parentOffset.top;
+  btn3Buttons.forEach(btn3Button => {
+    ["mouseenter", "mouseout"].forEach(btn3Evt => {
+      btn3Button.addEventListener(btn3Evt, btn3E => {
+        let btn3ParentOffset = btn3Button.getBoundingClientRect(),
+            btn3RelX = btn3E.pageX - btn3ParentOffset.left,
+            btn3RelY = btn3E.pageY - btn3ParentOffset.top;
 
-        const span = document.querySelectorAll("[data-identifier='button-position-aware-mask']");
+        const btn3Span = document.querySelectorAll("[data-identifier='button-position-aware-mask']");
 
-        span[0].style.top = relY + "px";
-        span[0].style.left = relX + "px";
+        btn3Span[0].style.top = btn3RelY + "px";
+        btn3Span[0].style.left = btn3RelX + "px";
       });
     });
   });
