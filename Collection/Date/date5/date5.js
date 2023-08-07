@@ -1,44 +1,44 @@
 function rotateClockHands() {
-    const clockElement = document.querySelector('[data-identifier="live-clock"]');
-    const timezoneOffset = clockElement.getAttribute('data-live-clock-timezone');
+    const date5ClockElement = document.querySelector('[data-identifier="live-clock"]');
+    const date5TimezoneOffset = date5ClockElement.getAttribute('data-live-clock-timezone');
 
-    let now = new Date();
+    let date5Now = new Date();
 
-    let hour, minute, second;
+    let date5Hour, date5Minute, date5Second;
 
-    if (timezoneOffset) {
+    if (date5TimezoneOffset) {
         // Convert the timezone offset from string to integer and handle if it's not a number
-        const timezoneOffsetInt = parseInt(timezoneOffset, 10);
-        if (isNaN(timezoneOffsetInt)) {
-            console.error('Invalid data-live-clock-timezone value:', timezoneOffset);
+        const date5TimezoneOffsetInt = parseInt(date5TimezoneOffset, 10);
+        if (isNaN(date5TimezoneOffsetInt)) {
+            console.error('Invalid data-live-clock-timezone value:', date5TimezoneOffset);
             return;
         }
 
         // Adjust the date to the desired timezone if an offset is specified
-        const offsetMillis = timezoneOffsetInt * 60 * 60 * 1000;
-        now = new Date(now.getTime() + offsetMillis);
+        const date5OffsetMillis = date5TimezoneOffsetInt * 60 * 60 * 1000;
+        date5Now = new Date(date5Now.getTime() + date5OffsetMillis);
 
-        hour = now.getUTCHours();
-        minute = now.getUTCMinutes();
-        second = now.getUTCSeconds();
+        date5Hour = date5Now.getUTCHours();
+        date5Minute = date5Now.getUTCMinutes();
+        date5Second = date5Now.getUTCSeconds();
     } else {
         // Get the local time when no timezone attribute is set
-        hour = now.getHours();
-        minute = now.getMinutes();
-        second = now.getSeconds();
+        date5Hour = date5Now.getHours();
+        date5Minute = date5Now.getMinutes();
+        date5Second = date5Now.getSeconds();
     }
 
-    const hourHand = document.querySelector('[data-identifier="live-clock-hour"]');
-    const minuteHand = document.querySelector('[data-identifier="live-clock-minute"]');
-    const secondHand = document.querySelector('[data-identifier="live-clock-second"]');
+    const date5HourHand = document.querySelector('[data-identifier="live-clock-hour"]');
+    const date5MinuteHand = document.querySelector('[data-identifier="live-clock-minute"]');
+    const date5SecondHand = document.querySelector('[data-identifier="live-clock-second"]');
 
-    const hourRotation = 360 * (hour % 12) / 12 + 30 * (minute / 60);
-    const minuteRotation = 360 * minute / 60;
-    const secondRotation = 360 * second / 60;
+    const date5HourRotation = 360 * (date5Hour % 12) / 12 + 30 * (date5Minute / 60);
+    const date5MinuteRotation = 360 * date5Minute / 60;
+    const date5SecondRotation = 360 * date5Second / 60;
 
-    hourHand.style.transform = `rotate(${hourRotation}deg)`;
-    minuteHand.style.transform = `rotate(${minuteRotation}deg)`;
-    secondHand.style.transform = `rotate(${secondRotation}deg)`;
+    date5HourHand.style.transform = `rotate(${date5HourRotation}deg)`;
+    date5MinuteHand.style.transform = `rotate(${date5MinuteRotation}deg)`;
+    date5SecondHand.style.transform = `rotate(${date5SecondRotation}deg)`;
 }
 
 setInterval(rotateClockHands, 1000);
