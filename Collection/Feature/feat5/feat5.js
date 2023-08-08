@@ -7,8 +7,8 @@
             var url = qrcodeDiv.getAttribute('data-qr-code');
             
             // Get color attributes from the div
-            var colorLight = qrcodeDiv.getAttribute('data-color-light') || "#ffffff";
-            var colorDark = qrcodeDiv.getAttribute('data-color-dark') || "#000000";
+            var colorLight = qrcodeDiv.getAttribute('data-qr-color-light') || "#ffffff";
+            var colorDark = qrcodeDiv.getAttribute('data-qr-color-dark') || "#000000";
 
             // Clear any existing QR codes in the container
             qrcodeDiv.innerHTML = "";
