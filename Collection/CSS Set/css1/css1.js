@@ -32,6 +32,22 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         switch (css1BorderSide.toLowerCase()) {
+    case "top":
+        css1Properties.borderTopWidth = css1EndBorderWidth;
+        css1Properties.borderTopColor = css1EndBorderColor;
+        break;
+    case "bottom":
+        css1Properties.borderBottomWidth = css1EndBorderWidth;
+        css1Properties.borderBottomColor = css1EndBorderColor;
+        break;
+    case "right":
+        css1Properties.borderRightWidth = css1EndBorderWidth;
+        css1Properties.borderRightColor = css1EndBorderColor;
+        break;
+    case "left":
+        css1Properties.borderLeftWidth = css1EndBorderWidth;
+        css1Properties.borderLeftColor = css1EndBorderColor;
+        break;
             case "top-right":
                 css1Properties.borderRightWidth = css1Properties.borderTopWidth = css1EndBorderWidth;
                 css1Properties.borderRightColor = css1Properties.borderTopColor = css1EndBorderColor;
