@@ -1,23 +1,15 @@
-const slider4Element = document.querySelector('[data-identifier="slider-side"]');
-const slidesPerViewDesktop = slider4Element.getAttribute('data-slider4-slides-per-view') || 3; // Default value for desktop
-const slidesPerViewMobile = slider4Element.getAttribute('data-slider4-breakpoint-slides-mobile') || 1; // Default value for mobile
-const slidesPerViewTablet = slider4Element.getAttribute('data-slider4-breakpoint-slides-tablet') || 2; // Default value for tablet
-const spaceBetween = slider4Element.getAttribute('data-slider4-space-between') || 16;
+const slider3Element = document.querySelector('[data-identifier="slider3-slider"]');
+const slidesPerViewDesktop = slider3Element.getAttribute('data-slider3-slides-per-view') || 4;
+const slidesPerViewMobile = slider3Element.getAttribute('data-slider3-breakpoint-slides-mobile') || 1;
+const slidesPerViewTablet = slider3Element.getAttribute('data-slider3-breakpoint-slides-tablet') || 2;
+const spaceBetween = slider3Element.getAttribute('data-slider3-space-between') || 16;
 
-
-const nextEl = slider4Element.querySelector('[data-identifier="side-next-slide"]');
-const prevEl = slider4Element.querySelector('[data-identifier="side-prev-slide"]');
-
-const slider4Swiper1 = new Swiper(slider4Element, {
-  direction: 'horizontal',
+const swiper3 = new Swiper('[data-identifier="slider3-slider"]', {
   loop: false,
   slidesPerView: slidesPerViewDesktop,
   spaceBetween: spaceBetween,
-  centeredSlides: false,
-  navigation: {
-    nextEl: nextEl,
-    prevEl: prevEl,
-  },
+  freeMode: true,
+  watchSlidesProgress: true,
   breakpoints: {
     0: {
       slidesPerView: slidesPerViewMobile,
@@ -28,6 +20,18 @@ const slider4Swiper1 = new Swiper(slider4Element, {
     992: {
       slidesPerView: slidesPerViewDesktop,
     },
+  },
+});
+
+const swiperThumb3 = new Swiper('[data-identifier="slider3-thumbs"]', {
+  loop: false,
+  spaceBetween: 32,
+  navigation: {
+    nextEl: '.slider3--arrow_next',
+    prevEl: '.slider3--arrow_prev',
+  },
+  thumbs: {
+    swiper: swiper3,
   },
 });
 
