@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2023 Mosaico
+ * 
+ * This code is part of the Mosaico's Collection and is subject to the terms of the Mosaico Software License Agreement.
+ * Unauthorized use, copying, modification, or distribution of this code without valid permission is strictly prohibited.
+ * 
+ * For licensing information, please refer to the Mosaico Software License Agreement available at www.mosaico.site/privacy-policy-and-terms
+ */
+
 const slider3Element = document.querySelector('[data-identifier="slider3-slider"]');
 const slidesPerViewDesktop = slider3Element.getAttribute('data-slider3-slides-per-view') || 4;
 const slidesPerViewMobile = slider3Element.getAttribute('data-slider3-breakpoint-slides-mobile') || 1;

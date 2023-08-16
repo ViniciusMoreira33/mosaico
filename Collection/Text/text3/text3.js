@@ -1,4 +1,14 @@
-        function countFunction(element) {
+/*
+ * Copyright (c) 2023 Mosaico
+ * 
+ * This code is part of the Mosaico's Collection and is subject to the terms of the Mosaico Software License Agreement.
+ * Unauthorized use, copying, modification, or distribution of this code without valid permission is strictly prohibited.
+ * 
+ * For licensing information, please refer to the Mosaico Software License Agreement available at www.mosaico.site/privacy-policy-and-terms
+ */
+
+
+function countFunction(element) {
             let text3StartValue = parseInt(element.getAttribute('data-count-start'));
             let text3EndValue = parseInt(element.getAttribute('data-count-end'));
             const text3Easing = element.getAttribute('data-count-easing');

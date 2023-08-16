@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2023 Mosaico
+ * 
+ * This code is part of the Mosaico's Collection and is subject to the terms of the Mosaico Software License Agreement.
+ * Unauthorized use, copying, modification, or distribution of this code without valid permission is strictly prohibited.
+ * 
+ * For licensing information, please refer to the Mosaico Software License Agreement available at www.mosaico.site/privacy-policy-and-terms
+ */
+
 const slider4Element = document.querySelector('[data-identifier="slider-side"]');
 const slidesPerViewDesktop = slider4Element.getAttribute('data-slider4-slides-per-view') || 3; // Default value for desktop
 const slidesPerViewMobile = slider4Element.getAttribute('data-slider4-breakpoint-slides-mobile') || 1; // Default value for mobile
