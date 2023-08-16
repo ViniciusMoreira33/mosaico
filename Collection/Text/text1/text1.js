@@ -1,4 +1,13 @@
- // function to create a unique cursor style and append to document head
+/*
+ * Copyright (c) 2023 Mosaico
+ * 
+ * This code is part of the Mosaico's Collection and is subject to the terms of the Mosaico Software License Agreement.
+ * Unauthorized use, copying, modification, or distribution of this code without valid permission is strictly prohibited.
+ * 
+ * For licensing information, please refer to the Mosaico Software License Agreement available at www.mosaico.site/privacy-policy-and-terms
+ */
+
+// function to create a unique cursor style and append to document head
 function makeText1CursorStyle(typedElement, cursorSize) {
   const uniqueText1ClassName = 'typedCursor-' + typedElement.dataset.identifier.replace(/\s+/g, '-').toLowerCase();
   const text1Style = document.createElement('style');
