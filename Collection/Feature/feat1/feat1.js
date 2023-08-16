@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2023 Mosaico
+ * 
+ * This code is part of the Mosaico's Collection and is subject to the terms of the Mosaico Software License Agreement.
+ * Unauthorized use, copying, modification, or distribution of this code without valid permission is strictly prohibited.
+ * 
+ * For licensing information, please refer to the Mosaico Software License Agreement available at www.mosaico.site/privacy-policy-and-terms
+ */
+
 var feat1Clipboard = new ClipboardJS('[data-clipboard-target]'); // Targeting the triggers using the data-clipboard-target attribute
 
 feat1Clipboard.on('success', function(feat1Event) {
