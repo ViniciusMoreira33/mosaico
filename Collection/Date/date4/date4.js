@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2023 Mosaico
+ * 
+ * This code is part of the Mosaico's Collection and is subject to the terms of the Mosaico Software License Agreement.
+ * Unauthorized use, copying, modification, or distribution of this code without valid permission is strictly prohibited.
+ * 
+ * For licensing information, please refer to the Mosaico Software License Agreement available at www.mosaico.site/privacy-policy-and-terms
+ */
+
 let date4Element = document.querySelector('[data-identifier="current-time"]');
 let date4FormatAttr = date4Element.getAttribute('data-time-format') || "24";
 let date4TimezoneAttr = date4Element.getAttribute('data-timezone') || (-new Date().getTimezoneOffset() / 60).toString();
