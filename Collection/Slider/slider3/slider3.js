@@ -11,12 +11,12 @@ const slider3Element = document.querySelector('[data-identifier="slider3-slider"
 const slidesPerViewDesktop3 = slider3Element.getAttribute('data-slider3-slides-per-view') || 4;
 const slidesPerViewMobile3 = slider3Element.getAttribute('data-slider3-breakpoint-slides-mobile') || 1;
 const slidesPerViewTablet3 = slider3Element.getAttribute('data-slider3-breakpoint-slides-tablet') || 2;
-const spaceBetween = slider3Element.getAttribute('data-slider3-space-between') || 16;
+const spaceBetween3 = slider3Element.getAttribute('data-slider3-space-between') || 16;
 
 const swiper3 = new Swiper('[data-identifier="slider3-slider"]', {
   loop: false,
   slidesPerView: slidesPerViewDesktop3,
-  spaceBetween: spaceBetween,
+  spaceBetween3: spaceBetween3,
   freeMode: true,
   watchSlidesProgress: true,
   breakpoints: {
@@ -34,7 +34,7 @@ const swiper3 = new Swiper('[data-identifier="slider3-slider"]', {
 
 const swiperThumb3 = new Swiper('[data-identifier="slider3-thumbs"]', {
   loop: false,
-  spaceBetween: 32,
+  spaceBetween3: 32,
   navigation: {
     nextEl: '.slider3--arrow_next',
     prevEl: '.slider3--arrow_prev',
