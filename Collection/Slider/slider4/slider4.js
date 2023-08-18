@@ -8,34 +8,34 @@
  */
 
 const slider4Element = document.querySelector('[data-identifier="slider-side"]');
-const slidesPerViewDesktop = slider4Element.getAttribute('data-slider4-slides-per-view') || 3; // Default value for desktop
-const slidesPerViewMobile = slider4Element.getAttribute('data-slider4-breakpoint-slides-mobile') || 1; // Default value for mobile
-const slidesPerViewTablet = slider4Element.getAttribute('data-slider4-breakpoint-slides-tablet') || 2; // Default value for tablet
-const spaceBetween = slider4Element.getAttribute('data-slider4-space-between') || 16;
+const slidesPerViewDesktop4 = slider4Element.getAttribute('data-slider4-slides-per-view') || 3; // Default value for desktop
+const slidesPerViewMobile4 = slider4Element.getAttribute('data-slider4-breakpoint-slides-mobile') || 1; // Default value for mobile
+const slidesPerViewTablet4 = slider4Element.getAttribute('data-slider4-breakpoint-slides-tablet') || 2; // Default value for tablet
+const spaceBetween4 = slider4Element.getAttribute('data-slider4-space-between') || 16;
 
 
-const nextEl = slider4Element.querySelector('[data-identifier="side-next-slide"]');
-const prevEl = slider4Element.querySelector('[data-identifier="side-prev-slide"]');
+const nextEl4 = slider4Element.querySelector('[data-identifier="side-next-slide"]');
+const prevEl4 = slider4Element.querySelector('[data-identifier="side-prev-slide"]');
 
 const slider4Swiper1 = new Swiper(slider4Element, {
   direction: 'horizontal',
   loop: false,
-  slidesPerView: slidesPerViewDesktop,
-  spaceBetween: spaceBetween,
+  slidesPerView: slidesPerViewDesktop4,
+  spaceBetween4: spaceBetween4,
   centeredSlides: false,
   navigation: {
-    nextEl: nextEl,
-    prevEl: prevEl,
+    nextEl4: nextEl4,
+    prevEl4: prevEl4,
   },
   breakpoints: {
     0: {
-      slidesPerView: slidesPerViewMobile,
+      slidesPerView: slidesPerViewMobile4,
     },
     479: {
-      slidesPerView: slidesPerViewTablet,
+      slidesPerView: slidesPerViewTablet4,
     },
     992: {
-      slidesPerView: slidesPerViewDesktop,
+      slidesPerView: slidesPerViewDesktop4,
     },
   },
 });

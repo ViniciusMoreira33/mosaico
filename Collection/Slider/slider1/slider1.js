@@ -8,18 +8,18 @@
  */
 
 const slider1Element = document.querySelector('[data-identifier="slider-full-width"]');
-const slidesPerViewDesktop = slider1Element.getAttribute('data-slider1-slides-per-view') || 2;
-const slidesPerViewMobile = slider1Element.getAttribute('data-slider1-breakpoint-slides-mobile') || 1;
-const slidesPerViewTablet = slider1Element.getAttribute('data-slider1-breakpoint-slides-tablet') || 1;
-const spaceBetween = slider1Element.getAttribute('data-slider1-space-between') || 32;
-const centeredSlides = slider1Element.getAttribute('data-slider1-centered-slides') === "true";
+const slidesPerViewDesktop1 = slider1Element.getAttribute('data-slider1-slides-per-view') || 2;
+const slidesPerViewMobile1 = slider1Element.getAttribute('data-slider1-breakpoint-slides-mobile') || 1;
+const slidesPerViewTablet1 = slider1Element.getAttribute('data-slider1-breakpoint-slides-tablet') || 1;
+const spaceBetween1 = slider1Element.getAttribute('data-slider1-space-between') || 32;
+const centeredSlides1 = slider1Element.getAttribute('data-slider1-centered-slides') === "true";
 
 const slider1Swiper1 = new Swiper('[data-identifier="slider-full-width"]', {
   direction: 'horizontal',
   loop: false,
-  slidesPerView: slidesPerViewDesktop,
-  spaceBetween: spaceBetween,
-  centeredSlides: centeredSlides,
+  slidesPerView: slidesPerViewDesktop1,
+  spaceBetween1: spaceBetween1,
+  centeredSlides1: centeredSlides1,
   pagination: {
     el: '[data-identifier="slider1--pagination"]',
     dynamicBullets: true,
@@ -37,13 +37,13 @@ const slider1Swiper1 = new Swiper('[data-identifier="slider-full-width"]', {
   },
   breakpoints: {
     0: {
-      slidesPerView: slidesPerViewMobile,
+      slidesPerView: slidesPerViewMobile1,
     },
     479: {
-      slidesPerView: slidesPerViewTablet,
+      slidesPerView: slidesPerViewTablet1,
     },
     992: {
-      slidesPerView: slidesPerViewDesktop,
+      slidesPerView: slidesPerViewDesktop1,
     },
   },
 });
