@@ -8,26 +8,26 @@
  */
 
 const slider3Element = document.querySelector('[data-identifier="slider3-slider"]');
-const slidesPerViewDesktop = slider3Element.getAttribute('data-slider3-slides-per-view') || 4;
-const slidesPerViewMobile = slider3Element.getAttribute('data-slider3-breakpoint-slides-mobile') || 1;
-const slidesPerViewTablet = slider3Element.getAttribute('data-slider3-breakpoint-slides-tablet') || 2;
+const slidesPerViewDesktop3 = slider3Element.getAttribute('data-slider3-slides-per-view') || 4;
+const slidesPerViewMobile3 = slider3Element.getAttribute('data-slider3-breakpoint-slides-mobile') || 1;
+const slidesPerViewTablet3 = slider3Element.getAttribute('data-slider3-breakpoint-slides-tablet') || 2;
 const spaceBetween = slider3Element.getAttribute('data-slider3-space-between') || 16;
 
 const swiper3 = new Swiper('[data-identifier="slider3-slider"]', {
   loop: false,
-  slidesPerView: slidesPerViewDesktop,
+  slidesPerView: slidesPerViewDesktop3,
   spaceBetween: spaceBetween,
   freeMode: true,
   watchSlidesProgress: true,
   breakpoints: {
     0: {
-      slidesPerView: slidesPerViewMobile,
+      slidesPerView: slidesPerViewMobile3,
     },
     479: {
-      slidesPerView: slidesPerViewTablet,
+      slidesPerView: slidesPerViewTablet3,
     },
     992: {
-      slidesPerView: slidesPerViewDesktop,
+      slidesPerView: slidesPerViewDesktop3,
     },
   },
 });
