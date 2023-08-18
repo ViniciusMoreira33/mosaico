@@ -18,8 +18,8 @@ const slider1Swiper1 = new Swiper('[data-identifier="slider-full-width"]', {
   direction: 'horizontal',
   loop: false,
   slidesPerView: slidesPerViewDesktop1,
-  spaceBetween1: spaceBetween1,
-  centeredSlides1: centeredSlides1,
+  spaceBetween: spaceBetween1,
+  centeredSlides: centeredSlides1,
   pagination: {
     el: '[data-identifier="slider1--pagination"]',
     dynamicBullets: true,
