@@ -21,11 +21,11 @@ const slider4Swiper1 = new Swiper(slider4Element, {
   direction: 'horizontal',
   loop: false,
   slidesPerView: slidesPerViewDesktop4,
-  spaceBetween4: spaceBetween4,
+  spaceBetween: spaceBetween4,
   centeredSlides: false,
   navigation: {
-    nextEl4: nextEl4,
-    prevEl4: prevEl4,
+    nextEl: nextEl4,
+    prevEl: prevEl4,
   },
   breakpoints: {
     0: {

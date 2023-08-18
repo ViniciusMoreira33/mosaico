@@ -16,7 +16,7 @@ const spaceBetween3 = slider3Element.getAttribute('data-slider3-space-between') 
 const swiper3 = new Swiper('[data-identifier="slider3-slider"]', {
   loop: false,
   slidesPerView: slidesPerViewDesktop3,
-  spaceBetween3: spaceBetween3,
+  spaceBetween: spaceBetween3,
   freeMode: true,
   watchSlidesProgress: true,
   breakpoints: {
@@ -34,7 +34,7 @@ const swiper3 = new Swiper('[data-identifier="slider3-slider"]', {
 
 const swiperThumb3 = new Swiper('[data-identifier="slider3-thumbs"]', {
   loop: false,
-  spaceBetween3: 32,
+  spaceBetween: 32,
   navigation: {
     nextEl: '.slider3--arrow_next',
     prevEl: '.slider3--arrow_prev',
