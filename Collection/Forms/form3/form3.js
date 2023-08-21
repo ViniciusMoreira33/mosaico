@@ -9,37 +9,60 @@
 
 $(function() {
     // Default date format
-    var defaultDateFormat = "mm/dd/yy";
+    var form3DefaultDateFormat = "mm/dd/yy";
 
-    var from = $('#from').attr('autocomplete', 'off').datepicker({
+    var container = $('[data-identifier="datepicker-container"]');
+
+    var form3From = $('#from').attr('autocomplete', 'off').datepicker({
         defaultDate: "+1w",
         changeMonth: true,
         numberOfMonths: 3,
-        dateFormat: $('#from').attr('data-datepicker-format') || defaultDateFormat,
+        dateFormat: $('#from').attr('data-datepicker-format') || form3DefaultDateFormat,
+        minDate: $('[data-identifier="datepicker-button-from"]').attr('data-datepicker-past-date') === "false" ? 0 : null,
+        showAnim: $('[data-identifier="datepicker-from"]').attr('data-datepicker-animation') || "show",
         onClose: function(selectedDate) {
             if (selectedDate) {
-                to.datepicker("option", "minDate", selectedDate);
+                form3To.datepicker("option", "minDate", selectedDate);
             }
+        },
+        beforeShow: function() {
+            styleDatePicker();
         }
     });
 
-    var to = $('#to').attr('autocomplete', 'off').datepicker({
+    var form3To = $('#to').attr('autocomplete', 'off').datepicker({
         defaultDate: "+1w",
         changeMonth: true,
         numberOfMonths: 3,
-        dateFormat: $('#to').attr('data-datepicker-format') || defaultDateFormat,
+        dateFormat: $('#to').attr('data-datepicker-format') || form3DefaultDateFormat,
+        minDate: $('[data-identifier="datepicker-button-to"]').attr('data-datepicker-past-date') === "false" ? 0 : null,
+        showAnim: $('[data-identifier="datepicker-to"]').attr('data-datepicker-animation') || "show",
         onClose: function(selectedDate) {
             if (selectedDate) {
-                from.datepicker("option", "maxDate", selectedDate);
+                form3From.datepicker("option", "maxDate", selectedDate);
             }
+        },
+        beforeShow: function() {
+            styleDatePicker();
         }
     });
+
+    function styleDatePicker() {
+        // Set font-family from the container's CSS
+        $('.ui-datepicker').css('font-family', container.css('font-family'));
+
+        // Set color from custom data attribute
+        $('.ui-datepicker').css('color', container.attr('data-datepicker-color'));
+
+        // Set background color from custom data attribute
+        $('.ui-datepicker').css('background', container.attr('data-datepicker-bg-color'));
+    }
 
     $('[data-identifier="datepicker-button-from"]').click(function() {
-        from.datepicker('show');
+        form3From.datepicker('show');
     });
 
     $('[data-identifier="datepicker-button-to"]').click(function() {
-        to.datepicker('show');
+        form3To.datepicker('show');
     });
 });
