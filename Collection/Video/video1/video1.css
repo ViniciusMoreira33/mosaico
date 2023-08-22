@@ -8,7 +8,8 @@
  */
 
 [data-identifier="embed-player"]{
-  
+  width: 900px;
+  height: 506.25px;
 --plyr-color-main: #151515;
 --plyr-video-background: rgba(0, 0, 0, 1);
   --plyr-focus-visible-color: var(--plyr-color-main);
