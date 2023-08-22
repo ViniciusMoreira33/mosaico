@@ -16,7 +16,7 @@ function getAttributeWithDefault(element, attribute, defaultValue) {
 
 function setCSSVariables(element) {
   const cssVariables = [
-     '--plyr-color-main',
+  '--plyr-color-main',
   '--plyr-video-background',
   '--plyr-focus-visible-color',
   '--plyr-badge-background',
