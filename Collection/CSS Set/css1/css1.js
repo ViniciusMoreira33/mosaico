@@ -73,6 +73,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 css1Properties.borderLeftWidth = css1Properties.borderBottomWidth = css1EndBorderWidth;
                 css1Properties.borderLeftColor = css1Properties.borderBottomColor = css1EndBorderColor;
                 break;
+            case "vertical":
+                css1Properties.borderTopWidth = css1Properties.borderBottomWidth = css1EndBorderWidth;
+                css1Properties.borderTopColor = css1Properties.borderBottomColor = css1EndBorderColor;
+                break;              
+            case "horizontal":
+                css1Properties.borderLeftWidth = css1Properties.borderRightWidth = css1EndBorderWidth;
+                css1Properties.borderLeftColor = css1Properties.borderRightColor = css1EndBorderColor;
+                break;               
             case "vertical-right":
                 css1Properties.borderRightWidth = css1EndBorderWidth;
                 css1Properties.borderRightColor = css1EndBorderColor;
