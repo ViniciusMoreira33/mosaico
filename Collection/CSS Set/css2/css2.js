@@ -20,14 +20,14 @@ document.addEventListener("DOMContentLoaded", function () {
         };
         var css2Easing = css2EasingMap[css2Element.getAttribute("data-shadow-easing")] || "linear";
 
-        var css2HShadow = css2Element.getAttribute("data-h-shadow") || "10px";
-        var css2VShadow = css2Element.getAttribute("data-v-shadow") || "10px";
+        var css2XShadow = css2Element.getAttribute("data-x-shadow") || "10px";
+        var css2YShadow = css2Element.getAttribute("data-y-shadow") || "10px";
         var css2Blur = css2Element.getAttribute("data-shadow-blur") || "5px";
         var css2Spread = css2Element.getAttribute("data-shadow-spread") || "5px";
         var css2Color = css2Element.getAttribute("data-shadow-color") || "black";
 
         var css2InitialBoxShadow = window.getComputedStyle(css2Element).boxShadow;
-        var css2EndBoxShadow = `${css2HShadow} ${css2VShadow} ${css2Blur} ${css2Spread} ${css2Color}`;
+        var css2EndBoxShadow = `${css2XShadow} ${css2YShadow} ${css2Blur} ${css2Spread} ${css2Color}`;
 
         var css2BoxShadowTransition = `box-shadow ${css2Duration}s ${css2Easing}`;
 
