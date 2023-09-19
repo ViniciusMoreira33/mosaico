@@ -6,6 +6,7 @@
  * 
  * For licensing information, please refer to the Mosaico Software License Agreement available at www.mosaico.site/privacy-policy-and-terms
  */
+
 document.addEventListener("DOMContentLoaded", function() {
 
     function formatDate(dateObj, format) {
