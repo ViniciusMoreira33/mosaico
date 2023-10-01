@@ -28,6 +28,18 @@ function initializeInteractFunctionality() {
         element.setAttribute('data-x', parseInt(computedStyle.left, 10));
         element.setAttribute('data-y', parseInt(computedStyle.top, 10));
 
+        // Calculate and set the initial position based on the current position
+        const rect = element.getBoundingClientRect();
+        const parentRect = element.parentElement.getBoundingClientRect();
+        const initialX = rect.left - parentRect.left;
+        const initialY = rect.top - parentRect.top;
+
+        // Set the initial position values
+        element.setAttribute('data-x', initialX);
+        element.setAttribute('data-y', initialY);
+        element.style.left = initialX + 'px';
+        element.style.top = initialY + 'px';
+
         // For snapping functionality
         let snapModifiers = [];
 
