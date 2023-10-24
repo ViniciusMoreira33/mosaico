@@ -8,7 +8,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Dynamically load the interact.js library
     const interactScript = document.createElement('script');
     interactScript.src = 'https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js';
     interactScript.onload = initializeInteractFunctionality;
@@ -18,40 +17,23 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeInteractFunctionality() {
     const interactElements = document.querySelectorAll('[data-identifier="ui-manipulation"]');
 
+    // Adding this line for the elements to prevent default touch actions
+    interactElements.forEach(element => element.style.touchAction = 'none');
+
     interactElements.forEach(element => {
         const actionsAttribute = element.getAttribute('data-manipulation-actions');
         if (!actionsAttribute) return;
 
         const actions = actionsAttribute.split(',').map(action => action.trim());
 
-        const computedStyle = window.getComputedStyle(element, null);
-        element.setAttribute('data-x', parseInt(computedStyle.left, 10));
-        element.setAttribute('data-y', parseInt(computedStyle.top, 10));
-
-        // Calculate and set the initial position based on the current position
-        const rect = element.getBoundingClientRect();
-        const parentRect = element.parentElement.getBoundingClientRect();
-        const initialX = rect.left - parentRect.left;
-        const initialY = rect.top - parentRect.top;
-
-        // Set the initial position values
-        element.setAttribute('data-x', initialX);
-        element.setAttribute('data-y', initialY);
-        element.style.left = initialX + 'px';
-        element.style.top = initialY + 'px';
-
-        // For snapping functionality
         let snapModifiers = [];
-
         if (element.getAttribute('data-manipulation-snap') === 'true') {
             const snapValues = element.getAttribute('data-manipulation-snap-values').split(',').map(val => parseInt(val.trim(), 10));
-
             snapModifiers.push(interact.modifiers.snap({
                 targets: [
                     interact.snappers.grid({ x: snapValues[0], y: snapValues[1] })
                 ],
-                relativePoints: [{ x: 0, y: 0 }],
-                offset: 'startCoords'
+                relativePoints: [{ x: 0, y: 0 }]
             }));
         }
 
@@ -73,12 +55,10 @@ function initializeInteractFunctionality() {
         }
 
         if (actions.includes('resize')) {
-            element.style.position = 'absolute';
-
             interact(element).resizable({
                 edges: { left: true, right: true, bottom: true, top: true },
                 listeners: {
-                    move (event) {
+                    move(event) {
                         const target = event.target;
                         let x = (parseFloat(target.getAttribute('data-x')) || 0);
                         let y = (parseFloat(target.getAttribute('data-y')) || 0);
@@ -89,8 +69,7 @@ function initializeInteractFunctionality() {
                         x += event.deltaRect.left;
                         y += event.deltaRect.top;
 
-                        target.style.left = x + 'px';
-                        target.style.top = y + 'px';
+                        target.style.transform = `translate(${x}px, ${y}px)`;
                         target.setAttribute('data-x', x);
                         target.setAttribute('data-y', y);
                     }
@@ -107,6 +86,20 @@ function initializeInteractFunctionality() {
                 inertia: true
             });
         }
+        
+        // Always add pinch-to-zoom functionality
+        interact(element).gesturable({
+            listeners: {
+                move(event) {
+                    const target = event.target;
+                    let scale = (parseFloat(target.getAttribute('data-scale')) || 1);
+                    scale *= event.ds;
+
+                    target.style.transform = `scale(${scale})`;
+                    target.setAttribute('data-scale', scale);
+                }
+            }
+        });
     });
 
     function dragMoveListener(event) {
@@ -114,15 +107,13 @@ function initializeInteractFunctionality() {
         const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
         const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-        target.style.left = x + 'px';
-        target.style.top = y + 'px';
+        target.style.transform = `translate(${x}px, ${y}px)`;
         target.setAttribute('data-x', x);
         target.setAttribute('data-y', y);
     }
 
     window.dragMoveListener = dragMoveListener;
 }
-
 
 
 //This Mosaico element uses Interact.js (License below)
