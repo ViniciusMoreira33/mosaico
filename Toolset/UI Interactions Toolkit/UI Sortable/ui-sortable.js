@@ -7,7 +7,6 @@
  * For licensing information, please refer to the Mosaico Software License Agreement available at www.mosaico.site/privacy-policy-and-terms
  */
 
-
 document.addEventListener('DOMContentLoaded', function() {
     // Dynamically load the Sortable.js script
     var sortableScript = document.createElement('script');
@@ -23,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Fetch values from attributes or use defaults
             let ghostColor = uiSortableElement.getAttribute('data-sortable-ghost-color') || "#696969";
             let selectedColor = uiSortableElement.getAttribute('data-sortable-selected-color') || "#cacaca";
+            let swapEnabled = uiSortableElement.getAttribute('data-sortable-swap') === 'true' || false;
+            let swapMax = parseInt(uiSortableElement.getAttribute('data-sortable-swap-max') || "0");
 
             // Create styles for ghostClass, selectedClass, and dragClass
             var styleSheet = document.createElement('style');
@@ -57,7 +58,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 swapThreshold: parseFloat(uiSortableElement.getAttribute('data-sortable-swap-threshold') || "1"),
                 sort: uiSortableElement.getAttribute('data-sortable-sort') === 'true' || true,
                 multiDrag: uiSortableElement.getAttribute('data-sortable-multi-drag') === 'true' || true,
-                fallbackTolerance: parseInt(uiSortableElement.getAttribute('data-sortable-fallback-tolerance') || "3")
+                fallbackTolerance: parseInt(uiSortableElement.getAttribute('data-sortable-fallback-tolerance') || "3"),
+                // Custom event to handle swapping between groups
+                onAdd: function(evt) {
+                    if (swapEnabled) {
+                        let draggedItem = evt.item;
+                        let fromList = evt.from;
+                        let targetList = evt.to;
+                        let targetIndex = evt.newIndex;
+
+                        // Already contains the newly dragged element
+                        let targetListCount = targetList.children.length;
+
+                        if (swapMax > 0 && targetListCount > swapMax) {
+                            // Identify the item that should be replaced
+                            let replacedItem = (targetIndex === targetListCount - 1) ? 
+                                targetList.children[targetIndex - 1] : 
+                                targetList.children[targetIndex + 1];
+                            
+                            // Move the replaced item back to the original list
+                            fromList.appendChild(replacedItem);
+                        }
+                    }
+                }
             });
         });
     }
