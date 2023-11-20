@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeInteractFunctionality() {
     const interactElements = document.querySelectorAll('[data-identifier="ui-manipulation"]');
 
-    // Adding this line for the elements to prevent default touch actions
     interactElements.forEach(element => element.style.touchAction = 'none');
 
     interactElements.forEach(element => {
@@ -87,13 +86,13 @@ function initializeInteractFunctionality() {
             });
         }
         
-        // Always add pinch-to-zoom functionality
+        // Adjusted pinch-to-zoom functionality for smoother scaling
         interact(element).gesturable({
             listeners: {
                 move(event) {
                     const target = event.target;
                     let scale = (parseFloat(target.getAttribute('data-scale')) || 1);
-                    scale *= event.ds;
+                    scale = Math.max(0.5, Math.min(scale * (1 + event.ds), 3)); // Adjust scale update for smoother transition
 
                     target.style.transform = `scale(${scale})`;
                     target.setAttribute('data-scale', scale);
@@ -114,6 +113,7 @@ function initializeInteractFunctionality() {
 
     window.dragMoveListener = dragMoveListener;
 }
+
 
 
 //This Mosaico element uses Interact.js (License below)
