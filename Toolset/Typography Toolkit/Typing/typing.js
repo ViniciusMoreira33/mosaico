@@ -7,14 +7,25 @@
  * For licensing information, please refer to the Mosaico Software License Agreement available at www.mosaico.site/privacy-policy-and-terms
  */
 
-// Function to create cursor style
 function makeCursorStyle(typedElement, cursorSize) {
+  const sizes = cursorSize.split(',');
+  const desktopSize = sizes[0];
+  const tabletSize = sizes[1];
+  const mobileSize = sizes[2];
+
   const uniqueClassName = 'typedCursor-' + typedElement.dataset.identifier.replace(/\s+/g, '-').toLowerCase();
   const style = document.createElement('style');
-  style.innerHTML = `.${uniqueClassName} { 
-      font-size: ${cursorSize}; 
-      vertical-align: middle;
-  }`;
+  style.innerHTML = `
+    @media (min-width: 992px) {
+      .${uniqueClassName} { font-size: ${desktopSize}; vertical-align: middle; }
+    }
+    @media (max-width: 991px) {
+      .${uniqueClassName} { font-size: ${tabletSize}; vertical-align: middle; }
+    }
+    @media (max-width: 767px) {
+      .${uniqueClassName} { font-size: ${mobileSize}; vertical-align: middle; }
+    }
+  `;
   document.head.appendChild(style);
   return uniqueClassName;
 }
