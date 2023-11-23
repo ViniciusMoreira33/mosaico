@@ -12,18 +12,22 @@ function makeCursorStyle(typedElement, cursorSize) {
   const desktopSize = sizes[0];
   const tabletSize = sizes[1];
   const mobileSize = sizes[2];
+  const extraSmallSize = sizes[3]; // New size for 478px and below
 
   const uniqueClassName = 'typedCursor-' + typedElement.dataset.identifier.replace(/\s+/g, '-').toLowerCase();
   const style = document.createElement('style');
   style.innerHTML = `
     @media (min-width: 992px) {
-      .${uniqueClassName} { font-size: ${desktopSize}; vertical-align: middle; }
+      .${uniqueClassName} { font-size: ${desktopSize}; vertical-align: top; }
     }
     @media (max-width: 991px) {
-      .${uniqueClassName} { font-size: ${tabletSize}; vertical-align: middle; }
+      .${uniqueClassName} { font-size: ${tabletSize}; vertical-align: top; }
     }
     @media (max-width: 767px) {
-      .${uniqueClassName} { font-size: ${mobileSize}; vertical-align: middle; }
+      .${uniqueClassName} { font-size: ${mobileSize}; vertical-align: top; }
+    }
+    @media (max-width: 478px) {
+      .${uniqueClassName} { font-size: ${extraSmallSize}; vertical-align: top; }
     }
   `;
   document.head.appendChild(style);
