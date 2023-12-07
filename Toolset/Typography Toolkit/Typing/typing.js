@@ -3,8 +3,6 @@
  * 
  * This code is part of the Mosaico's and is subject to the terms of the Mosaico Software License Agreement.
  * Unauthorized use, copying, modification, or distribution of this code without valid permission is strictly prohibited.
- * 
- * For licensing information, please refer to the Mosaico Software License Agreement available at www.mosaico.site/privacy-policy-and-terms
  */
 
 function makeCursorStyle(typedElement, cursorSize) {
