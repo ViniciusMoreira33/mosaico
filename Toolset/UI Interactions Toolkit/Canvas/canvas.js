@@ -15,8 +15,10 @@ document.addEventListener("DOMContentLoaded", function() {
     var canvasContainers = document.querySelectorAll('[data-identifier="canvas"]');
     canvasContainers.forEach(function(container) {
       var canvasEl = document.createElement("canvas");
-      canvasEl.width = container.clientWidth;
-      canvasEl.height = container.clientHeight;
+      var originalWidth = container.clientWidth;
+      var originalHeight = container.clientHeight;
+      canvasEl.width = originalWidth;
+      canvasEl.height = originalHeight;
       container.appendChild(canvasEl);
       var canvas = new fabric.Canvas(canvasEl);
       var isDrawingMode = container.getAttribute("data-canvas-actions") === "draw";
@@ -41,44 +43,80 @@ document.addEventListener("DOMContentLoaded", function() {
         object.hasBorders = hasBorders;
         object.hasRotatingPoint = hasRotatingPoint;
       }
-                  // Setup group selection styles
-            function applyGroupSelectionStyles(group) {
-                group.borderColor = borderColor;
-                group.cornerColor = cornerColor;
-                group.cornerSize = cornerSize;
-                group.transparentCorners = transparentCorners;
-                group.hasBorders = hasBorders;
-                group.hasControls = hasControls;
-            }
+      // Setup group selection styles
+      function applyGroupSelectionStyles(group) {
+        group.borderColor = borderColor;
+        group.cornerColor = cornerColor;
+        group.cornerSize = cornerSize;
+        group.transparentCorners = transparentCorners;
+        group.hasBorders = hasBorders;
+        group.hasControls = hasControls;
+      }
 
-            canvas.on('selection:created', function(e) {
-                if (e.target.type === 'activeSelection') {
-                    applyGroupSelectionStyles(e.target);
-                }
-            });
+      canvas.on('selection:created', function(e) {
+        if (e.target.type === 'activeSelection') {
+          applyGroupSelectionStyles(e.target);
+        }
+      });
 
-            canvas.on('selection:updated', function(e) {
-                if (e.target.type === 'activeSelection') {
-                    applyGroupSelectionStyles(e.target);
-                }
-            });
+      canvas.on('selection:updated', function(e) {
+        if (e.target.type === 'activeSelection') {
+          applyGroupSelectionStyles(e.target);
+        }
+      });
       var rectangleDivs = container.querySelectorAll('[data-identifier="canvas-rectangle"]');
       rectangleDivs.forEach(function(rectDiv) {
         var rectWidth = parseInt(rectDiv.getAttribute("data-rectangle-width")) || 100;
         var rectHeight = parseInt(rectDiv.getAttribute("data-rectangle-height")) || 100;
         var rectFill = rectDiv.getAttribute("data-rectangle-fill") || "#FFA629";
-        var rectLeft = parseInt(rectDiv.getAttribute("data-rectangle-left")) || 0;
-        var rectTop = parseInt(rectDiv.getAttribute("data-rectangle-top")) || 0;
+        var rectTopValues = rectDiv.getAttribute("data-rectangle-top").split(',').map(Number);
+        var rectLeftValues = rectDiv.getAttribute("data-rectangle-left").split(',').map(Number);
+        var rectTop, rectLeft;
+        var width = window.innerWidth;
+        if (rectTopValues.length === 1) {
+          rectTop = rectTopValues[0];
+        } else {
+          if (width >= 992) {
+            rectTop = rectTopValues[0];
+          } else if (width <= 991 && width >= 768) {
+            rectTop = rectTopValues[1];
+          } else if (width <= 767 && width >= 479) {
+            rectTop = rectTopValues[2];
+          } else {
+            rectTop = rectTopValues[3];
+          }
+        }
+        if (rectLeftValues.length === 1) {
+          rectLeft = rectLeftValues[0];
+        } else {
+          if (width >= 992) {
+            rectLeft = rectLeftValues[0];
+          } else if (width <= 991 && width >= 768) {
+            rectLeft = rectLeftValues[1];
+          } else if (width <= 767 && width >= 479) {
+            rectLeft = rectLeftValues[2];
+          } else {
+            rectLeft = rectLeftValues[3];
+          }
+        }
         var rectControls = rectDiv.getAttribute("data-rectangle-controls") === "true";
         var rectangle = new fabric.Rect({
-          left: rectLeft,
-          top: rectTop,
           fill: rectFill,
           width: rectWidth,
           height: rectHeight,
           hasControls: rectControls,
           hasRotatingPoint: rectControls,
           selectable: rectControls,
+          originalWidth: rectWidth,
+          originalHeight: rectHeight,
+          originalScaleX: 1,
+          originalScaleY: 1
+        });
+        rectangle.set({
+          left: rectLeft,
+          top: rectTop,
+          originalLeft: rectLeft,
+          originalTop: rectTop
         });
         applyCustomAttributes(rectangle);
         rectDiv.style.display = "none";
@@ -89,18 +127,54 @@ document.addEventListener("DOMContentLoaded", function() {
         var triWidth = parseInt(triDiv.getAttribute("data-triangle-width")) || 100;
         var triHeight = parseInt(triDiv.getAttribute("data-triangle-height")) || 100;
         var triFill = triDiv.getAttribute("data-triangle-fill") || "#FFA629";
-        var triLeft = parseInt(triDiv.getAttribute("data-triangle-left")) || 0;
-        var triTop = parseInt(triDiv.getAttribute("data-triangle-top")) || 0;
+        var triTopValues = triDiv.getAttribute("data-triangle-top").split(',').map(Number);
+        var triLeftValues = triDiv.getAttribute("data-triangle-left").split(',').map(Number);
+        var triTop, triLeft;
+        var width = window.innerWidth;
+        if (triTopValues.length === 1) {
+          triTop = triTopValues[0];
+        } else {
+          if (width >= 992) {
+            triTop = triTopValues[0];
+          } else if (width <= 991 && width >= 768) {
+            triTop = triTopValues[1];
+          } else if (width <= 767 && width >= 479) {
+            triTop = triTopValues[2];
+          } else {
+            triTop = triTopValues[3];
+          }
+        }
+        if (triLeftValues.length === 1) {
+          triLeft = triLeftValues[0];
+        } else {
+          if (width >= 992) {
+            triLeft = triLeftValues[0];
+          } else if (width <= 991 && width >= 768) {
+            triLeft = triLeftValues[1];
+          } else if (width <= 767 && width >= 479) {
+            triLeft = triLeftValues[2];
+          } else {
+            triLeft = triLeftValues[3];
+          }
+        }
         var triControls = triDiv.getAttribute("data-triangle-controls") === "true";
         var triangle = new fabric.Triangle({
-          left: triLeft,
-          top: triTop,
           fill: triFill,
           width: triWidth,
           height: triHeight,
           hasControls: triControls,
           hasRotatingPoint: triControls,
           selectable: triControls,
+          originalWidth: triWidth,
+          originalHeight: triHeight,
+          originalScaleX: 1,
+          originalScaleY: 1
+        });
+        triangle.set({
+          left: triLeft,
+          top: triTop,
+          originalLeft: triLeft,
+          originalTop: triTop
         });
         applyCustomAttributes(triangle);
         triDiv.style.display = "none";
@@ -110,17 +184,52 @@ document.addEventListener("DOMContentLoaded", function() {
       circleDivs.forEach(function(circDiv) {
         var radius = parseInt(circDiv.getAttribute("data-circle-radius")) || 50;
         var circleFill = circDiv.getAttribute("data-circle-fill") || "#FFA629";
-        var circleLeft = parseInt(circDiv.getAttribute("data-circle-left")) || 0;
-        var circleTop = parseInt(circDiv.getAttribute("data-circle-top")) || 0;
+        var circleTopValues = circDiv.getAttribute("data-circle-top").split(',').map(Number);
+        var circleLeftValues = circDiv.getAttribute("data-circle-left").split(',').map(Number);
+        var circleTop, circleLeft;
+        var width = window.innerWidth;
+        if (circleTopValues.length === 1) {
+          circleTop = circleTopValues[0];
+        } else {
+          if (width >= 992) {
+            circleTop = circleTopValues[0];
+          } else if (width <= 991 && width >= 768) {
+            circleTop = circleTopValues[1];
+          } else if (width <= 767 && width >= 479) {
+            circleTop = circleTopValues[2];
+          } else {
+            circleTop = circleTopValues[3];
+          }
+        }
+        if (circleLeftValues.length === 1) {
+          circleLeft = circleLeftValues[0];
+        } else {
+          if (width >= 992) {
+            circleLeft = circleLeftValues[0];
+          } else if (width <= 991 && width >= 768) {
+            circleLeft = circleLeftValues[1];
+          } else if (width <= 767 && width >= 479) {
+            circleLeft = circleLeftValues[2];
+          } else {
+            circleLeft = circleLeftValues[3];
+          }
+        }
         var circleControls = circDiv.getAttribute("data-circle-controls") === "true";
         var circle = new fabric.Circle({
-          left: circleLeft,
-          top: circleTop,
           radius: radius,
           fill: circleFill,
           hasControls: circleControls,
           hasRotatingPoint: circleControls,
           selectable: circleControls,
+          originalRadius: radius,
+          originalScaleX: 1,
+          originalScaleY: 1
+        });
+        circle.set({
+          left: circleLeft,
+          top: circleTop,
+          originalLeft: circleLeft,
+          originalTop: circleTop
         });
         applyCustomAttributes(circle);
         circDiv.style.display = "none";
@@ -131,18 +240,54 @@ document.addEventListener("DOMContentLoaded", function() {
         var rx = parseInt(ellipseDiv.getAttribute("data-ellipse-rx")) || 50;
         var ry = parseInt(ellipseDiv.getAttribute("data-ellipse-ry")) || 25;
         var ellipseFill = ellipseDiv.getAttribute("data-ellipse-fill") || "#FFA629";
-        var ellipseLeft = parseInt(ellipseDiv.getAttribute("data-ellipse-left")) || 0;
-        var ellipseTop = parseInt(ellipseDiv.getAttribute("data-ellipse-top")) || 0;
+        var ellipseTopValues = ellipseDiv.getAttribute("data-ellipse-top").split(',').map(Number);
+        var ellipseLeftValues = ellipseDiv.getAttribute("data-ellipse-left").split(',').map(Number);
+        var ellipseTop, ellipseLeft;
+        var width = window.innerWidth;
+        if (ellipseTopValues.length === 1) {
+          ellipseTop = ellipseTopValues[0];
+        } else {
+          if (width >= 992) {
+            ellipseTop = ellipseTopValues[0];
+          } else if (width <= 991 && width >= 768) {
+            ellipseTop = ellipseTopValues[1];
+          } else if (width <= 767 && width >= 479) {
+            ellipseTop = ellipseTopValues[2];
+          } else {
+            ellipseTop = ellipseTopValues[3];
+          }
+        }
+        if (ellipseLeftValues.length === 1) {
+          ellipseLeft = ellipseLeftValues[0];
+        } else {
+          if (width >= 992) {
+            ellipseLeft = ellipseLeftValues[0];
+          } else if (width <= 991 && width >= 768) {
+            ellipseLeft = ellipseLeftValues[1];
+          } else if (width <= 767 && width >= 479) {
+            ellipseLeft = ellipseLeftValues[2];
+          } else {
+            ellipseLeft = ellipseLeftValues[3];
+          }
+        }
         var ellipseControls = ellipseDiv.getAttribute("data-ellipse-controls") === "true";
         var ellipse = new fabric.Ellipse({
-          left: ellipseLeft,
-          top: ellipseTop,
           rx: rx,
           ry: ry,
           fill: ellipseFill,
           hasControls: ellipseControls,
           hasRotatingPoint: ellipseControls,
           selectable: ellipseControls,
+          originalRx: rx,
+          originalRy: ry
+        });
+        ellipse.set({
+          left: ellipseLeft,
+          top: ellipseTop,
+          originalScaleX: ellipse.scaleX,
+          originalScaleY: ellipse.scaleY,
+          originalLeft: ellipseLeft,
+          originalTop: ellipseTop
         });
         applyCustomAttributes(ellipse);
         ellipseDiv.style.display = "none";
@@ -151,13 +296,47 @@ document.addEventListener("DOMContentLoaded", function() {
       var textDivs = container.querySelectorAll('[data-identifier="canvas-text"]');
       textDivs.forEach(function(textDiv) {
         var textString = textDiv.getAttribute("data-canvas-text-string") || "Default Text";
-        var textLeft = parseInt(textDiv.getAttribute("data-canvas-text-left")) || 0;
-        var textTop = parseInt(textDiv.getAttribute("data-canvas-text-top")) || 0;
+        var textTopValues = textDiv.getAttribute("data-canvas-text-top").split(',').map(Number);
+        var textLeftValues = textDiv.getAttribute("data-canvas-text-left").split(',').map(Number);
+        var textTop, textLeft;
+        var width = window.innerWidth;
+        if (textTopValues.length === 1) {
+          textTop = textTopValues[0];
+        } else {
+          if (width >= 992) {
+            textTop = textTopValues[0];
+          } else if (width <= 991 && width >= 768) {
+            textTop = textTopValues[1];
+          } else if (width <= 767 && width >= 479) {
+            textTop = textTopValues[2];
+          } else {
+            textTop = textTopValues[3];
+          }
+        }
+        if (textLeftValues.length === 1) {
+          textLeft = textLeftValues[0];
+        } else {
+          if (width >= 992) {
+            textLeft = textLeftValues[0];
+          } else if (width <= 991 && width >= 768) {
+            textLeft = textLeftValues[1];
+          } else if (width <= 767 && width >= 479) {
+            textLeft = textLeftValues[2];
+          } else {
+            textLeft = textLeftValues[3];
+          }
+        }
         var textColor = textDiv.getAttribute("data-canvas-text-color") || "#000000";
         var textObject = new fabric.Text(textString, {
+          fill: textColor
+        });
+        textObject.set({
           left: textLeft,
           top: textTop,
-          fill: textColor,
+          originalLeft: textLeft,
+          originalTop: textTop,
+          originalScaleX: textObject.scaleX,
+          originalScaleY: textObject.scaleY,
         });
         applyCustomAttributes(textObject);
         textDiv.style.display = "none";
@@ -166,13 +345,48 @@ document.addEventListener("DOMContentLoaded", function() {
       var itextDivs = container.querySelectorAll('[data-identifier="canvas-itext"]');
       itextDivs.forEach(function(itextDiv) {
         var itextString = itextDiv.getAttribute("data-canvas-itext-string") || "Editable Text";
-        var itextLeft = parseInt(itextDiv.getAttribute("data-canvas-itext-left")) || 0;
-        var itextTop = parseInt(itextDiv.getAttribute("data-canvas-itext-top")) || 0;
+        var itextTopValues = itextDiv.getAttribute("data-canvas-itext-top").split(',').map(Number);
+        var itextLeftValues = itextDiv.getAttribute("data-canvas-itext-left").split(',').map(Number);
+        var itextTop, itextLeft;
+        var width = window.innerWidth;
+        if (itextTopValues.length === 1) {
+          itextTop = itextTopValues[0];
+        } else {
+          if (width >= 992) {
+            itextTop = itextTopValues[0];
+          } else if (width <= 991 && width >= 768) {
+            itextTop = itextTopValues[1];
+          } else if (width <= 767 && width >= 479) {
+            itextTop = itextTopValues[2];
+          } else {
+            itextTop = itextTopValues[3];
+          }
+        }
+        if (itextLeftValues.length === 1) {
+          itextLeft = itextLeftValues[0];
+        } else {
+          if (width >= 992) {
+            itextLeft = itextLeftValues[0];
+          } else if (width <= 991 && width >= 768) {
+            itextLeft = itextLeftValues[1];
+          } else if (width <= 767 && width >= 479) {
+            itextLeft = itextLeftValues[2];
+          } else {
+            itextLeft = itextLeftValues[3];
+          }
+        }
         var itextColor = itextDiv.getAttribute("data-canvas-itext-color") || "#000000";
         var itextObject = new fabric.IText(itextString, {
+          fill: itextColor
+        });
+        itextObject.set({
           left: itextLeft,
           top: itextTop,
-          fill: itextColor,
+          originalLeft: itextLeft,
+          originalTop: itextTop,
+          originalScaleX: itextObject.scaleX,
+          originalScaleY: itextObject.scaleY,
+
         });
         applyCustomAttributes(itextObject);
         itextDiv.style.display = "none";
@@ -181,21 +395,90 @@ document.addEventListener("DOMContentLoaded", function() {
       var imageDivs = container.querySelectorAll('[data-identifier="canvas-image"]');
       imageDivs.forEach(function(imageDiv) {
         var imageUrl = imageDiv.getAttribute("data-canvas-image-url");
-        var imageLeft = parseInt(imageDiv.getAttribute("data-canvas-image-left")) || 0;
-        var imageTop = parseInt(imageDiv.getAttribute("data-canvas-image-top")) || 0;
+        var imageTopValues = imageDiv.getAttribute("data-canvas-image-top").split(',').map(Number);
+        var imageLeftValues = imageDiv.getAttribute("data-canvas-image-left").split(',').map(Number);
+        var imageTop, imageLeft;
+        var width = window.innerWidth;
+        if (imageTopValues.length === 1) {
+          imageTop = imageTopValues[0];
+        } else {
+          if (width >= 992) {
+            imageTop = imageTopValues[0];
+          } else if (width <= 991 && width >= 768) {
+            imageTop = imageTopValues[1];
+          } else if (width <= 767 && width >= 479) {
+            imageTop = imageTopValues[2];
+          } else {
+            imageTop = imageTopValues[3];
+          }
+        }
+        if (imageLeftValues.length === 1) {
+          imageLeft = imageLeftValues[0];
+        } else {
+          if (width >= 992) {
+            imageLeft = imageLeftValues[0];
+          } else if (width <= 991 && width >= 768) {
+            imageLeft = imageLeftValues[1];
+          } else if (width <= 767 && width >= 479) {
+            imageLeft = imageLeftValues[2];
+          } else {
+            imageLeft = imageLeftValues[3];
+          }
+        }
         fabric.Image.fromURL(imageUrl, function(img) {
           img.set({
+            originalLeft: imageLeft,
+            originalTop: imageTop,
+            originalScaleX: img.scaleX,
+            originalScaleY: img.scaleY,
+          });
+          img.set({
             left: imageLeft,
-            top: imageTop,
+            top: imageTop
           });
           applyCustomAttributes(img);
           imageDiv.style.display = "none";
           canvas.add(img);
         });
       });
+
+      function resizeCanvasAndElements() {
+        var scaleCanvas = container.getAttribute("data-canvas-scale") === "true";
+        var newWidth = container.clientWidth;
+        var newHeight = container.clientHeight;
+      
+        if (scaleCanvas) {
+          // If data-canvas-scale is true, scale the canvas and its elements
+          var scaleX = newWidth / originalWidth;
+          var scaleY = newHeight / originalHeight;
+          var scale = Math.min(scaleX, scaleY);
+      
+          canvas.setWidth(originalWidth * scale);
+          canvas.setHeight(originalHeight * scale);
+      
+          canvas.getObjects().forEach(function(object) {
+            object.scaleX = object.originalScaleX * scale;
+            object.scaleY = object.originalScaleY * scale;
+            object.left = object.originalLeft * scale;
+            object.top = object.originalTop * scale;
+            object.setCoords();
+          });
+        } else {
+          // If data-canvas-scale is false, only adjust the canvas size
+          canvas.setWidth(newWidth);
+          canvas.setHeight(newHeight);
+        }
+      
+        canvas.setViewportTransform([1, 0, 0, 1, 0, 0]); // Reset the viewport
+      
+        canvas.renderAll();
+        canvas.calcOffset();
+      }
+      window.addEventListener('resize', resizeCanvasAndElements);
     });
   }
 });
+
 
 //This Mosaico element uses Fabric.js (License below)
 
